@@ -5,8 +5,8 @@
       "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "dev-turbopack",
-      "detail": "next dev --turbo"
+      "label": "dev",
+      "detail": "next dev"
     }
   ]
 }

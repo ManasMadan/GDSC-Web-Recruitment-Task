@@ -1,0 +1,33 @@
+.searchbar {
+  margin: auto;
+  width: 50vw;
+  min-width: 300px;
+  height: 50px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  transition: 0.2s;
+}
+.searchbar-expanded {
+  margin: auto;
+  width: 50vw;
+  min-width: 300px;
+  max-height: 300px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  transition: 0.2s;
+}
+.searchbar-input {
+  width: 45vw;
+  min-width: 300px;
+  height: 40px;
+  border: none;
+}
+.searchbar-input:focus {
+  outline: none;
+}
