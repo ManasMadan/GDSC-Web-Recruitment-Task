@@ -6,7 +6,7 @@ const sampleCurrentWeatherData = {
   weather: [
     {
       id: 501,
-      main: "Rain",
+      main: "Clouds",
       description: "moderate rain",
       icon: "10d",
     },
