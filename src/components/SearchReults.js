@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/SearchBar.module.css";
 import Image from "next/image";
-import preloader from "@/images/earth_preloader.gif";
-import locationImage from "@/images/location-icon.png";
 import { sampleSearchResults } from "@/methods/sampleData";
+
 export default function SearchReults({ query, handleSearchResultClick }) {
   const SearchResult = ({ name, country, state, location }) => {
     const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
@@ -15,7 +14,7 @@ export default function SearchReults({ query, handleSearchResultClick }) {
         onClick={() => handleSearchResultClick(location)}
       >
         <Image
-          src={locationImage}
+          src="/icons/location-icon.webp"
           width={16}
           height={16}
           alt="Map Pin Location"
@@ -55,7 +54,12 @@ export default function SearchReults({ query, handleSearchResultClick }) {
   if (loading) {
     return (
       <div className={styles["search-results-preloader"]}>
-        <Image src={preloader} width={64} height={64} alt="Loading..." />
+        <Image
+          src="/icons/earth-preloader.webp"
+          width={64}
+          height={64}
+          alt="Loading..."
+        />
       </div>
     );
   }
