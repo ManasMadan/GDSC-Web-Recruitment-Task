@@ -59,6 +59,13 @@ export default function SearchReults({ query, handleSearchResultClick }) {
       </div>
     );
   }
+  if (!results.length) {
+    return (
+      <div className={styles["search-results-container"]}>
+        <p className={styles["searchbar-no-results"]}>No Result Found</p>
+      </div>
+    );
+  }
   return (
     <div className={styles["search-results-container"]}>
       {results.map((result, index) => (

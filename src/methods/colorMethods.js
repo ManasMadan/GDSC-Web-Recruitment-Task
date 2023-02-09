@@ -51,7 +51,7 @@ const getGradientColor = (currentWeatherCondition) => {
   }
   return gradient;
 };
-function shadeColor(color, percent) {
+function getShadeColor(color, percent) {
   var R = parseInt(color.substring(1, 3), 16);
   var G = parseInt(color.substring(3, 5), 16);
   var B = parseInt(color.substring(5, 7), 16);
@@ -74,4 +74,4 @@ function shadeColor(color, percent) {
 
   return "#" + RR + GG + BB;
 }
-export { getGradientColor, shadeColor };
+export { getGradientColor, getShadeColor };

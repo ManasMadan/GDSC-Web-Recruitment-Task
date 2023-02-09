@@ -1,3 +1,8 @@
+:root {
+  --gradientColor: #c6e2ff;
+  --shadeColor: #b2cbe5;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

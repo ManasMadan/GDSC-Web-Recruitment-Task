@@ -1,0 +1,12 @@
+.current-weather-container {
+  background-color: white;
+  min-width: 300px;
+  width: 50vw;
+  margin: 50px auto;
+  border: 2px white solid;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--shadeColor);
+}

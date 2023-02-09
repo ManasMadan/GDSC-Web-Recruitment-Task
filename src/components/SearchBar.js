@@ -3,7 +3,7 @@ import styles from "@/styles/SearchBar.module.css";
 import useDebounce from "@/hooks/useDebounce";
 const SearchReults = React.lazy(() => import("@/components/SearchReults"));
 
-export default function SearchBar({ color, setLocation }) {
+export default function SearchBar({ setLocation }) {
   const [typing, setTyping] = useState(false);
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
@@ -24,7 +24,6 @@ export default function SearchBar({ color, setLocation }) {
 
   return (
     <nav
-      style={{ backgroundColor: color }}
       className={typing ? styles["searchbar-expanded"] : styles["searchbar"]}
     >
       <input
@@ -38,9 +37,6 @@ export default function SearchBar({ color, setLocation }) {
         }}
         placeholder="Search City..."
         className={styles["searchbar-input"]}
-        style={{
-          backgroundColor: color,
-        }}
       />
       {debouncedQuery && typing ? (
         <SearchReults

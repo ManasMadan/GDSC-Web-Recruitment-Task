@@ -1,18 +1,24 @@
-import { getGradientColor, shadeColor } from "@/methods/colorMethods";
+import { getGradientColor, getShadeColor } from "@/methods/colorMethods";
 import styles from "@/styles/Home.module.css";
 import SearchBar from "@/components/SearchBar";
 import { useEffect, useState } from "react";
 import { sampleCurrentWeatherData } from "@/methods/sampleData";
+import CurrentWeather from "@/components/CurrentWeather";
 
 export default function Home() {
-  const [gradientColor, setGradienColor] = useState(
-    getGradientColor(sampleCurrentWeatherData["weather"][0]["main"])
-  );
   const [location, setLocation] = useState([0, 0]);
   const [currentWeatherData, setCurrentWeatherData] = useState(
     sampleCurrentWeatherData
   );
   const [unitsMetric, setUnitsMetric] = useState(0);
+
+  const setGradientColor = (weather) => {
+    const gradientColor = getGradientColor(weather);
+    const shadeColor = getShadeColor(gradientColor, -10);
+    const root = document.querySelector(":root");
+    root.style.setProperty("--gradientColor", gradientColor);
+    root.style.setProperty("--shadeColor", shadeColor);
+  };
   const getWeatherData = async () => {
     const result = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=${
@@ -24,7 +30,7 @@ export default function Home() {
     if (result.status == 200) {
       const data = await result.json();
       setCurrentWeatherData(data);
-      setGradienColor(getGradientColor(data["weather"][0]["main"]));
+      setGradientColor(data["weather"][0]["main"]);
     } else {
       alert("API Limit Exhausted");
     }
@@ -34,15 +40,12 @@ export default function Home() {
   }, [location, unitsMetric]);
 
   return (
-    <main
-      className={styles.main}
-      style={{
-        background: `linear-gradient(to bottom, white 10%, ${gradientColor})`,
-      }}
-    >
-      <SearchBar
-        color={shadeColor(gradientColor, -10)}
-        setLocation={setLocation}
+    <main className={styles.main}>
+      <SearchBar setLocation={setLocation} />
+      <CurrentWeather
+        currentWeatherData={currentWeatherData}
+        unitsMetric={unitsMetric}
+        setUnitsMetric={setUnitsMetric}
       />
     </main>
   );

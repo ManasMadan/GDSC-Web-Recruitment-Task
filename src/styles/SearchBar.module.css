@@ -9,6 +9,7 @@
   flex-direction: column;
   padding: 5px 10px;
   transition: 0.2s;
+  background-color: var(--shadeColor);
 }
 .searchbar-expanded {
   margin: auto;
@@ -21,6 +22,7 @@
   flex-direction: column;
   padding: 5px 2.5vw;
   transition: 0.2s;
+  background-color: var(--shadeColor);
 }
 .searchbar-input {
   width: 45vw;
@@ -28,6 +30,7 @@
   height: 40px;
   border: none;
   align-self: center;
+  background-color: var(--shadeColor);
 }
 .searchbar-input:focus {
   outline: none;
@@ -49,4 +52,8 @@
 }
 .searchbar-result-text {
   padding-left: 10px;
+}
+.searchbar-no-results {
+  padding: 20px 0px;
+  font-size: 1.2rem;
 }
