@@ -2,33 +2,34 @@ import { getGradientColor, shadeColor } from "@/methods/colorMethods";
 import styles from "@/styles/Home.module.css";
 import SearchBar from "@/components/SearchBar";
 import { useEffect, useState } from "react";
+import { sampleCurrentWeatherData } from "@/methods/sampleData";
 
-const weatherConditions = [
-  "Clouds",
-  "Clear",
-  "Tornado",
-  "Squall",
-  "Ash",
-  "Dust",
-  "Sand",
-  "Fog",
-  "Haze",
-  "Smoke",
-  "Snow",
-  "Mist",
-  "Rain",
-  "Drizzle",
-  "Thunderstorm",
-];
-
-export default function Home({ data }) {
+export default function Home() {
   const [gradientColor, setGradienColor] = useState(
-    getGradientColor(weatherConditions[1])
+    getGradientColor(sampleCurrentWeatherData["weather"]["main"])
+  );
+  const [location, setLocation] = useState([0, 0]);
+  const [currentWeatherData, setCurrentWeatherData] = useState(
+    sampleCurrentWeatherData
   );
 
+  const getWeatherData = async () => {
+    const result = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${location[0]}&lon=${location[1]}&appid=${process.env.NEXT_PUBlIC_API_KEY}`
+    );
+    const data = await result.json();
+    if (data.cod == 200) {
+      setCurrentWeatherData(data);
+    } else {
+      alert("API Limit Exhausted");
+    }
+  };
   useEffect(() => {
-    setGradienColor(getGradientColor(weatherConditions[1]));
-  }, [data]);
+    getWeatherData();
+  }, [location]);
+  useEffect(() => {
+    setGradienColor(getGradientColor(currentWeatherData["weather"]["main"]));
+  }, [currentWeatherData]);
 
   return (
     <main
@@ -37,7 +38,10 @@ export default function Home({ data }) {
         background: `linear-gradient(to bottom, white 10%, ${gradientColor})`,
       }}
     >
-      <SearchBar color={shadeColor(gradientColor, -10)} />
+      <SearchBar
+        color={shadeColor(gradientColor, -10)}
+        setLocation={setLocation}
+      />
     </main>
   );
 }
