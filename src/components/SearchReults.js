@@ -8,6 +8,7 @@ export default function SearchReults({ query, handleSearchResultClick }) {
     const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
     const countryName = regionNames.of(country);
     let stateName = state ? " " + state + ", " : " ";
+    const resultString = `${name},${stateName}${countryName}`;
     return (
       <div
         className={styles["searchbar-result"]}
@@ -19,10 +20,7 @@ export default function SearchReults({ query, handleSearchResultClick }) {
           height={16}
           alt="Map Pin Location"
         />
-        <span className={styles["searchbar-result-text"]}>
-          {name},{stateName}
-          {countryName}
-        </span>
+        <span>{resultString}</span>
       </div>
     );
   };
@@ -32,7 +30,7 @@ export default function SearchReults({ query, handleSearchResultClick }) {
   const getSearchResults = async () => {
     setLoading(true);
     const result = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${process.env.NEXT_PUBlIC_API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?limit=5&q=${query}&appid=${process.env.NEXT_PUBlIC_API_KEY}`
     );
     if (result.status == 200) {
       const data = await result.json();
@@ -45,7 +43,6 @@ export default function SearchReults({ query, handleSearchResultClick }) {
   useEffect(() => {
     if (query.trim()) {
       getSearchResults();
-      setTimeout(() => setLoading(false), 2000);
     } else {
       setResults([]);
     }
@@ -53,13 +50,15 @@ export default function SearchReults({ query, handleSearchResultClick }) {
 
   if (loading) {
     return (
-      <div className={styles["search-results-preloader"]}>
-        <Image
-          src="/icons/earth-preloader.webp"
-          width={64}
-          height={64}
-          alt="Loading..."
-        />
+      <div className={styles["search-results-container"]}>
+        <div className={styles["search-results-preloader"]}>
+          <Image
+            src="/icons/earth-preloader.webp"
+            width={64}
+            height={64}
+            alt="Loading..."
+          />
+        </div>
       </div>
     );
   }

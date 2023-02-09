@@ -24,10 +24,13 @@ export default function SearchBar({ setLocation }) {
 
   return (
     <nav
-      className={typing ? styles["searchbar-expanded"] : styles["searchbar"]}
+      className={`${typing ? styles["searchbar-expanded"] : ""} ${
+        styles["searchbar"]
+      }`}
     >
       <input
         type="text"
+        value={query}
         onChange={(e) => {
           if (e.target.value.trim().length) {
             setQuery(e.target.value.trim());
