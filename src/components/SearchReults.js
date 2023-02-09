@@ -32,11 +32,11 @@ export default function SearchReults({ query, handleSearchResultClick }) {
 
   const getSearchResults = async () => {
     setLoading(true);
-    const results = await fetch(
+    const result = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=${process.env.NEXT_PUBlIC_API_KEY}`
     );
-    const data = await results.json();
-    if (data.cod === 200) {
+    if (result.status == 200) {
+      const data = await result.json();
       setResults(data);
     } else {
       alert("API Limit Exhausted");

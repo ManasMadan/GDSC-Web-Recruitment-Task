@@ -17,12 +17,12 @@ export default function Home() {
     const result = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=${
         unitsMetric ? "metric" : "imperial"
-      }lat=${location[0]}&lon=${location[1]}&appid=${
+      }&lat=${location[0]}&lon=${location[1]}&appid=${
         process.env.NEXT_PUBlIC_API_KEY
       }`
     );
-    const data = await result.json();
-    if (data.cod == 200) {
+    if (result.status == 200) {
+      const data = await result.json();
       setCurrentWeatherData(data);
       setGradienColor(getGradientColor(data["weather"][0]["main"]));
     } else {

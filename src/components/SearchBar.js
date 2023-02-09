@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/SearchBar.module.css";
 import useDebounce from "@/hooks/useDebounce";
-import SearchReults from "@/components/SearchReults";
+const SearchReults = React.lazy(() => import("@/components/SearchReults"));
 
 export default function SearchBar({ color, setLocation }) {
   const [typing, setTyping] = useState(false);
