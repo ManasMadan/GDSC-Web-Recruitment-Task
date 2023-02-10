@@ -33,7 +33,7 @@ export default function SearchBar({ setLocation }) {
         value={query}
         onChange={(e) => {
           if (e.target.value.trim().length) {
-            setQuery(e.target.value.trim());
+            setQuery(e.target.value);
           } else {
             setQuery("");
           }

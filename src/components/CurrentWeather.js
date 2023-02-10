@@ -6,5 +6,9 @@ export default function CurrentWeather({
   unitsMetric,
   setUnitsMetric,
 }) {
-  return <div className={styles["current-weather-container"]}></div>;
+  return (
+    <div className={styles["current-weather-container"]}>
+      {currentWeatherData["name"]}
+    </div>
+  );
 }

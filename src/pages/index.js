@@ -6,7 +6,7 @@ import { sampleCurrentWeatherData } from "@/methods/sampleData";
 import CurrentWeather from "@/components/CurrentWeather";
 
 export default function Home() {
-  const [location, setLocation] = useState([0, 0]);
+  const [location, setLocation] = useState(null);
   const [currentWeatherData, setCurrentWeatherData] = useState(
     sampleCurrentWeatherData
   );
@@ -30,13 +30,36 @@ export default function Home() {
     if (result.status == 200) {
       const data = await result.json();
       setCurrentWeatherData(data);
+      localStorage.setItem("lastWeather", JSON.stringify(data));
+      localStorage.setItem("lastWeatherUpdate", new Date());
       setGradientColor(data["weather"][0]["main"]);
     } else {
-      alert("API Limit Exhausted");
+      const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
+      if (lastLocalWeather) {
+        setCurrentWeatherData(lastLocalWeather);
+        setGradientColor(lastLocalWeather["weather"][0]["main"]);
+      } else {
+        alert("API Limit Exhausted");
+      }
     }
   };
+
   useEffect(() => {
-    getWeatherData();
+    const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
+    if (lastLocalWeather) {
+      setCurrentWeatherData(lastLocalWeather);
+      setGradientColor(lastLocalWeather["weather"][0]["main"]);
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) =>
+        setLocation([position.coords.latitude, position.coords.longitude])
+      );
+    }
+  }, []);
+  useEffect(() => {
+    if (location) {
+      getWeatherData();
+    }
   }, [location, unitsMetric]);
 
   return (
