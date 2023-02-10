@@ -12,3 +12,12 @@
   border: 2px white solid;
   border-radius: 10px;
 }
+
+.current-weather-top-container {
+  display: flex;
+}
+
+.current-location-map-container {
+  width: 128px;
+  height: 128px;
+}

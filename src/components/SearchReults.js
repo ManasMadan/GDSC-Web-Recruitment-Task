@@ -30,7 +30,7 @@ export default function SearchReults({ query, handleSearchResultClick }) {
   const getSearchResults = async () => {
     setLoading(true);
     const result = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?limit=5&q=${query}&appid=${process.env.NEXT_PUBlIC_API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?limit=5&q=${query}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
     );
     if (result.status == 200) {
       const data = await result.json();

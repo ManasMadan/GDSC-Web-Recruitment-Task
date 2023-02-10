@@ -24,7 +24,7 @@ export default function Home() {
       `https://api.openweathermap.org/data/2.5/weather?units=${
         unitsMetric ? "metric" : "imperial"
       }&lat=${location[0]}&lon=${location[1]}&appid=${
-        process.env.NEXT_PUBlIC_API_KEY
+        process.env.NEXT_PUBLIC_API_KEY
       }`
     );
     if (result.status == 200) {
@@ -45,15 +45,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
-    if (lastLocalWeather) {
-      setCurrentWeatherData(lastLocalWeather);
-      setGradientColor(lastLocalWeather["weather"][0]["main"]);
-    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) =>
         setLocation([position.coords.latitude, position.coords.longitude])
       );
+    }
+    const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
+    if (lastLocalWeather) {
+      setCurrentWeatherData(lastLocalWeather);
+      setGradientColor(lastLocalWeather["weather"][0]["main"]);
     }
   }, []);
   useEffect(() => {
@@ -63,7 +63,12 @@ export default function Home() {
   }, [location, unitsMetric]);
 
   return (
-    <main className={styles.main}>
+    <main
+      className={styles.main}
+      style={{
+        backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST_NAME}/background-images/sunset.webp)`,
+      }}
+    >
       <SearchBar setLocation={setLocation} />
       <CurrentWeather
         currentWeatherData={currentWeatherData}
