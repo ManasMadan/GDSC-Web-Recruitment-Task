@@ -33,7 +33,7 @@ export default function CurrentWeather({
   return (
     <div className={styles["container"]}>
       <div className={styles["current-weather-place-container"]}>
-        <h3 className="">
+        <h3>
           {cityName}, {countryName}
         </h3>
       </div>
@@ -175,7 +175,7 @@ export default function CurrentWeather({
           longitude={currentWeatherData["coord"]["lon"]}
         />
 
-        <WeatherForecast location={location} />
+        <WeatherForecast location={location} unitsMetric={unitsMetric} />
       </div>
     </div>
   );

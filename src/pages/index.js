@@ -5,7 +5,7 @@ import { sampleCurrentWeatherData } from "@/methods/sampleData";
 import CurrentWeather from "@/components/CurrentWeather";
 
 export default function Home() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState([28.6434, 77.0679]);
   const [currentWeatherData, setCurrentWeatherData] = useState(
     sampleCurrentWeatherData
   );
@@ -41,9 +41,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    if (location) {
-      getWeatherData();
-    }
+    getWeatherData();
   }, [location, unitsMetric]);
 
   return (
