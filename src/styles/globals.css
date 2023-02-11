@@ -1,16 +1,17 @@
-:root {
-  --gradientColor: #c6e2ff;
-  --shadeColor: #b2cbe5;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: Ubuntu, "Segoe UI", Roboto, Oxygen, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+img {
+  mix-blend-mode: multiply;
 }

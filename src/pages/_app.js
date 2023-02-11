@@ -6,6 +6,8 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>Weather App</title>
+        <meta name="description" content="A Simple Weather App" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -1,4 +1,3 @@
-import { getGradientColor, getShadeColor } from "@/methods/colorMethods";
 import styles from "@/styles/Home.module.css";
 import SearchBar from "@/components/SearchBar";
 import { useEffect, useState } from "react";
@@ -10,15 +9,8 @@ export default function Home() {
   const [currentWeatherData, setCurrentWeatherData] = useState(
     sampleCurrentWeatherData
   );
-  const [unitsMetric, setUnitsMetric] = useState(0);
+  const [unitsMetric, setUnitsMetric] = useState(1);
 
-  const setGradientColor = (weather) => {
-    const gradientColor = getGradientColor(weather);
-    const shadeColor = getShadeColor(gradientColor, -10);
-    const root = document.querySelector(":root");
-    root.style.setProperty("--gradientColor", gradientColor);
-    root.style.setProperty("--shadeColor", shadeColor);
-  };
   const getWeatherData = async () => {
     const result = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=${
@@ -32,12 +24,10 @@ export default function Home() {
       setCurrentWeatherData(data);
       localStorage.setItem("lastWeather", JSON.stringify(data));
       localStorage.setItem("lastWeatherUpdate", new Date());
-      setGradientColor(data["weather"][0]["main"]);
     } else {
       const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
       if (lastLocalWeather) {
         setCurrentWeatherData(lastLocalWeather);
-        setGradientColor(lastLocalWeather["weather"][0]["main"]);
       } else {
         alert("API Limit Exhausted");
       }
@@ -45,15 +35,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) =>
-        setLocation([position.coords.latitude, position.coords.longitude])
-      );
-    }
     const lastLocalWeather = JSON.parse(localStorage.getItem("lastWeather"));
     if (lastLocalWeather) {
       setCurrentWeatherData(lastLocalWeather);
-      setGradientColor(lastLocalWeather["weather"][0]["main"]);
     }
   }, []);
   useEffect(() => {
@@ -74,6 +58,7 @@ export default function Home() {
         currentWeatherData={currentWeatherData}
         unitsMetric={unitsMetric}
         setUnitsMetric={setUnitsMetric}
+        location={location}
       />
     </main>
   );
